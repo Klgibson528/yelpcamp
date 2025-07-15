@@ -20,15 +20,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
   res.render('home');
 });
-app.get('/make_campgrounds', async (req, res) => {
-    const camp = new Campground({
-        name: 'Granite Hill',
-        image: 'https://source.unsplash.com/collection/483251',
-        description: 'A huge granite hill, no bathrooms. No water. Beautiful granite!',
-    });
-    await camp.save();
-    res.send(camp);
-})
+app.get('/campgrounds', async (req, res) => {
+  const campgrounds = await Campground.find({});
+  res.render('campgrounds/index', { campgrounds });
+});
 
 
 app.listen(3000, () => {
