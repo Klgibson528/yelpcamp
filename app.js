@@ -17,6 +17,9 @@ db.once('open', () => {
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
   res.render('home');
 });
@@ -25,6 +28,27 @@ app.get('/campgrounds', async (req, res) => {
   res.render('campgrounds/index', { campgrounds });
 });
 
+app.get('/campgrounds/new', (req, res) => {
+  res.render('campgrounds/new');
+});   
+
+app.get('/campgrounds/:id', async (req, res) => {
+  const campground = await Campground.findById(req.params.id);
+  if (!campground) {
+    return res.status(404).send('Campground not found');
+  }
+  res.render('campgrounds/show', { campground });
+});
+
+app.get('/campgrounds/new', (req, res) => {
+  res.render('campgrounds/new');
+});   
+
+app.post('/campgrounds', async (req, res) => {
+  const campground = new Campground(req.body.campground);
+  await campground.save();
+  res.redirect(`/campgrounds/${campground._id}`);
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
