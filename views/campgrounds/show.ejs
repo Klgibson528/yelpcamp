@@ -15,9 +15,10 @@
         <main>
             <img src="<%= campground.image %>" alt="<%= campground.location %>">
             <p><%= campground.description %></p>
-            <a href="/campgrounds">Back to Campgrounds</a>
+            <a href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
         </main>
         <footer>
+            
             <p>&copy; 2023 YelpCamp</p>
         </footer>  
     </body>
