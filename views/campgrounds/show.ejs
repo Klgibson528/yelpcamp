@@ -16,9 +16,13 @@
             <img src="<%= campground.image %>" alt="<%= campground.location %>">
             <p><%= campground.description %></p>
             <a href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
+            <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit">Delete Campground</button>
+            </form>
+            
         </main>
         <footer>
-            
+            <a href="/campgrounds">Back to Campgrounds</a>
             <p>&copy; 2023 YelpCamp</p>
         </footer>  
     </body>
